@@ -2,7 +2,7 @@
   HShiDianLu's Website
 </h1>
 <p align="center">
-  Personal website (frontend only).
+  Personal website (frontend only). | <a href="https://hshidianlu.site">hshidianlu.site</a>
 </p>
 
 <p align="center">
@@ -10,3 +10,5 @@
     <img src="https://img.shields.io/badge/Lisence-GPLv3-Vue" alt="Downloads"/>
   </a>
 </p>
+
+**This website uses Flask (Python) to run.**
