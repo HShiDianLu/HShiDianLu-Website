@@ -1,0 +1,27 @@
+/* hitokoto-override.css By HShiDianLu. */
+/* Copyright © 2024 HShiDianLu. All Rights Reserved. */
+
+body {
+    overflow: hidden;
+}
+
+html {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)), url("/static/img/hitokoto-banner.png");
+    transition: 0.3s ease all;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.simple-link {
+    color: white;
+}
+
+.simple-link:hover {
+    color: rgba(255, 255, 255, .8) !important;
+}
+
+#footer {
+    display: none;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>一言 | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+    <link href="{{ url_for('static', filename='css/hitokoto-override.css') }}" rel="stylesheet"/>
+</head>
+<body>
+<nav id="navbar">
+    <ul>
+        <li class="nav-title"><a href="javascript:hrefTo('/hitokoto');">一言 | HShiDianLu's Website</a></li>
+        {% include 'loginStateSetter.html' %}
+        <li class="right breadcrumb-nav">
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="javascript:hrefTo('/');">主页</a></li>
+                    <li><span>一言</span></li>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+</nav>
+<script>
+    var text = "{{text}}";
+    var who = "{{who}}";
+</script>
+<div class="string-box">
+    <div class="string-box-inner">
+        <div class="bracket bracket-left">『</div>
+        <div class="word">{{text}}</div>
+        <div class="bracket bracket-right">』</div>
+        <div class="author">{{who}}</div>
+    </div>
+    <div id="string-op-box">
+        <div id="string-op">
+            <a class="string-op-btn" id="string-change" href="javascript:stringChange();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-arrow-repeat"
+                     viewBox="0 0 16 16">
+                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                    <path fill-rule="evenodd"
+                          d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                </svg>
+            </a>
+            <a class="string-op-btn" id="string-copy" href="javascript:stringCopy();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                    <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                </svg>
+            </a>
+            <a class="string-op-btn" id="string-disabled" href="javascript:stringDisabled();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-eye-slash"
+                     viewBox="0 0 16 16">
+                    <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+                    <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+                    <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="footer-hitokoto">
+    <p id="copyright">Powered By <a class="simple-link"
+                                    href="https://hitokoto.cn/"
+                                    target="_blank">Hitokoto</a>. | Copyright © 2024 HShiDianLu. All Rights Reserved.
+        | <a class="simple-link" href="https://stats.uptimerobot.com/yGZVrC6mVJ"
+             target="_blank">状态</a> | <a class="simple-link"
+                                           href="javascript:hrefTo('/hitokoto');">一言</a> | <a
+                class="simple-link" href="javascript:hrefTo('/status');">睡似了吗？</a> | Server
+        Build - {{buildHash}}</p>
+</div>
+{% include 'footer.html' %}
+<script src="{{ url_for('static', filename='js/hitokoto.js') }}"></script>
+</body>
+</html>

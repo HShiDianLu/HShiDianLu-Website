@@ -1,0 +1,36 @@
+/* iframe-override.css By HShiDianLu. */
+/* Copyright © 2024 HShiDianLu. All Rights Reserved. */
+
+body {
+    margin: 0;
+}
+
+html {
+    overflow: hidden;
+}
+
+iframe {
+    margin-top: 60px;
+}
+
+#footer-hitokoto {
+    background: rgba(0, 0, 0, .25);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    bottom: 0;
+}
+
+#copyright {
+    margin: 10px;
+    font-size: 15px;
+}
+
+.simple-link:hover {
+    color: rgba(255, 255, 255, .8) !important;
+}
+
+iframe {
+    opacity: 0;
+    transition: 0.3s ease all;
+}

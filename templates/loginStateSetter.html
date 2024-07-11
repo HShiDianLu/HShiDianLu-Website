@@ -1,0 +1,33 @@
+{% if user==None %}
+<li class="right nav-important">
+    <button class="reverse disabled-reverse" id="nav-login">登录 / 注册</button>
+</li>
+<script>
+    var loginState = false;
+    var username;
+</script>
+{% else %}
+<li class="dropdown right">
+    <a href="javascript:void(0);" class="dropdown-btn">{{user}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" fill="currentColor" viewBox="0 0 16 16"
+             class="dropdown-svg">
+            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        </svg>
+    </a>
+    <div class="dropdown-content">
+        <a id="logout" href="#">退出登录
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor"
+                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+            </svg>
+        </a>
+        <script>
+            var a = document.getElementById("logout")
+            a.href = 'javascript:hrefTo("/logout?to=' + window.location.pathname + '");';
+            var loginState = true;
+            username = "{{user}}";
+        </script>
+    </div>
+</li>
+{% endif %}

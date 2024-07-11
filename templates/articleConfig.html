@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{operate}}文章 | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vditor.css') }}"/>
+</head>
+<body>
+<nav id="navbar">
+    <ul>
+        <li class="nav-title"><a href="javascript:hrefTo('/article');">文章 | HShiDianLu's Website</a></li>
+        {% include 'loginStateSetter.html' %}
+        <li class="right breadcrumb-nav">
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="javascript:hrefTo('/');">主页</a></li>
+                    <li><a href="javascript:hrefTo('/article');">文章</a></li>
+                    <li><span>{{operate}}文章</span></li>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+</nav>
+<div id="contents">
+    <h2 class="big-h2">{{operate}}文章 <small>{{opEnglish}}</small></h2>
+    <br/>
+    <p class="edit-tip">基本信息</p>
+    <div id="edit-box">
+        <div class="input-outer">
+            <div class="input-data common">
+                <input type="text" id="input-title" value="{{title}}" required>
+                <div class="input-underline"></div>
+                <label id="input-title-label">标题</label>
+            </div>
+        </div>
+        <p class="error" id="input-title-err">标题不能为空</p>
+        <div class="input-outer">
+            <div class="input-data common">
+                <input type="text" id="input-desc" value="{{desc}}" required>
+                <div class="input-underline"></div>
+                <label id="input-desc-label">简介</label>
+            </div>
+        </div>
+        <p class="error" id="input-desc-err">简介不能为空</p>
+        <p class="edit-tip right" id="edit-box-info">文章ID · {{id}} | 创建日期 · {{date}}</p>
+    </div>
+    <br/>
+    <br/>
+    <p class="edit-tip">正文</p>
+    <div id="editor" class="block"></div>
+    <p class="error" id="editor-err">错误信息-中文占位符</p>
+    <button class="right reverse" onclick="send();" id="editor-btn">{{opBtn}}</button>
+    <br/>
+    <br/>
+</div>
+<br/>
+<br/>
+{% include 'footer.html' %}
+<script>
+    var stringArray = {{content | tojson}};
+    var articleID = {{id}};
+    var type = "{{type}}";
+    var success = "{{success}}";
+    var successText = "{{successText}}";
+</script>
+<script src="{{ url_for('static', filename='js/vditor.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/article-config.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>睡似了吗？</title>
+    {% include 'topper.html' %}
+    <link href="{{ url_for('static', filename='css/hitokoto-override.css') }}" rel="stylesheet"/>
+    <script src="../static/js/status.js"></script>
+</head>
+<body>
+<nav id="navbar">
+    <ul>
+        <li class="nav-title"><a href="javascript:hrefTo('/status');">睡似了吗？</a></li>
+        {% include 'loginStateSetter.html' %}
+        <li class="right breadcrumb-nav">
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="javascript:hrefTo('/');">主页</a></li>
+                    <li><span>睡似了吗？</span></li>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+</nav>
+<div id="sleep-box">
+    <div id="sleep-inner">
+        <h1>睡似<small>(sǐ)</small>了吗？</h1>
+        <p>不出意外的话，现在我应该</p>
+        <h2>{{status}}</h2>
+        <p id="sleep-date-outer">于 <span id="sleep-date">{{time}}</span></p>
+        <br/>
+        <div class="split-line"></div>
+        <br/>
+        <p id="sleep-desc">通过这个页面，你可以直接知晓我当前的状态。<br/><a class="simple-link" href="javascript:hrefTo('/article/100000005');">
+            <svg style="position:relative;top: 1.5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 fill="currentColor"
+                 class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                <path fill-rule="evenodd"
+                      d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+            </svg>
+            实现原理...</a></p>
+    </div>
+</div>
+<div id="footer-hitokoto">
+    <p id="copyright">Copyright © 2024 HShiDianLu. All Rights Reserved.
+        | <a class="simple-link" href="https://stats.uptimerobot.com/yGZVrC6mVJ"
+             target="_blank">状态</a> | <a class="simple-link"
+                                           href="javascript:hrefTo('/hitokoto');">一言</a> | <a
+                class="simple-link" href="javascript:hrefTo('/status');">睡似了吗？</a> | Server
+        Build - {{buildHash}}</p>
+</div>
+{% include 'footer.html' %}
+<script src="{{ url_for('static', filename='js/status.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<br/>
+<div id="footer" class="block">
+    <div class="split-line" id="footer-line"></div>
+    <p id="copyright">Copyright © 2024 HShiDianLu. All Rights Reserved.</p>
+    <p id="copyright-down"><a class="simple-link" href="https://stats.uptimerobot.com/yGZVrC6mVJ"
+                              target="_blank">状态</a> | <a class="simple-link"
+                                                            href="javascript:hrefTo('/hitokoto');">一言</a> | <a
+                class="simple-link" href="javascript:hrefTo('/status');">睡似了吗？</a> | Server
+        Build - {{buildHash}}</p>
+</div>
+<br/>
+<div id="back-to-top">
+    <button id="back-btn" onclick="back()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-up"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+        </svg>
+    </button>
+</div>
+<div id="login">
+    <a id="login-bg" href="javascript:close();"></a>
+    <div id="login-window">
+        <img id="login-img" class="fadeImg">
+        <p id="recaptcha-text">由 reCAPTCHA 提供保护 | <a href="https://policies.google.cn/privacy?hl=zh-CN&gl=cn"
+                                                          target="_blank" class="recaptcha-link">隐私权</a> · <a
+                href="https://policies.google.cn/terms?hl=zh-CN&gl=cn" target="_blank"
+                class="recaptcha-link">使用条款</a></p>
+        <div id="login-box">
+            <a id="login-close" href="javascript:close();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"/>
+                </svg>
+            </a>
+            <h3>登录 <small>Login</small></h3>
+            <br/>
+            <div id="login-form">
+                <div class="input-outer">
+                    <div class="input-data common">
+                        <input type="text" id="input1" required>
+                        <div class="input-underline"></div>
+                        <label id="input1-label">用户名 / 邮箱</label>
+                    </div>
+                </div>
+                <p class="error" id="input1-err">错误信息-中文占位符</p>
+                <div class="input-outer common">
+                    <div class="input-data">
+                        <input type="password" id="input2" required>
+                        <div class="input-underline"></div>
+                        <label id="input2-label">密码</label>
+                    </div>
+                </div>
+                <p class="error" id="input2-err">错误信息-中文占位符</p>
+                <div class="input-outer reg">
+                    <div class="input-data">
+                        <input type="password" id="input3" required>
+                        <div class="input-underline"></div>
+                        <label id="input3-label">密码</label>
+                    </div>
+                </div>
+                <p class="error" id="input3-err">错误信息-中文占位符</p>
+                <div class="input-outer reg">
+                    <div class="input-data">
+                        <input type="password" id="input4" required>
+                        <div class="input-underline"></div>
+                        <label id="input4-label">确认密码</label>
+                    </div>
+                </div>
+                <p class="error" id="input4-err">错误信息-中文占位符</p>
+            </div>
+            <div id="login-btngroup">
+                <button class="reverse" id="login-btn" onclick="login();">登录</button>
+                <button id="reg-btn" onclick="switchWindow();">注册</button>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>
+{% include 'scripts.html' %}

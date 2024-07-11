@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}} | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+</head>
+<body>
+{% include 'scripts.html' %}
+<script>
+    $(window).on('load', function () {
+        swal({
+            title: "{{alertTitle|safe}}",
+            text: "{{alertText|safe}}",
+            icon: "{{alertIcon}}",
+            button: false,
+            closeOnClickOutside: false,
+        });
+    });
+</script>
+</body>
+</html>

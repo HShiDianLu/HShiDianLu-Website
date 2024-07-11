@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}} | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+    <link href="{{ url_for('static', filename='css/iframe-override.css') }}" rel="stylesheet"/>
+</head>
+<body>
+<nav id="navbar">
+    <ul>
+        <li class="nav-title"><a href="javascript:hrefTo('{{nowHref}}');">{{title}} | HShiDianLu's Website</a></li>
+        {% include 'loginStateSetter.html' %}
+        <li class="right breadcrumb-nav">
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="javascript:hrefTo('/');">主页</a></li>
+                    <li><span>{{title}}</span></li>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+</nav>
+<div id="footer-hitokoto">
+    <p id="copyright">{{pre|safe}}Copyright © 2024 HShiDianLu. All Rights Reserved.
+        | <a class="simple-link" href="https://stats.uptimerobot.com/yGZVrC6mVJ"
+             target="_blank">状态</a> | <a class="simple-link"
+                                           href="javascript:hrefTo('/hitokoto');">一言</a> | <a
+                class="simple-link" href="javascript:hrefTo('/status');">睡似了吗？</a> | Server
+        Build - {{buildHash}}</p>
+</div>
+<script>
+    var iframeLink = "{{iframeLink}}";
+</script>
+{% include 'scripts.html' %}
+<script src="{{ url_for('static', filename='js/iframe.js') }}"></script>
+</body>
+</html>

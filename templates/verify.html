@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>邮箱验证 | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+</head>
+<body>
+{% include 'scripts.html' %}
+<script>
+    // 请不要格式化本段代码
+    $(window).on('load', function () {
+        {{script | safe}}.then((result) => {
+            if (result == "resent") {
+                retry();
+            }
+        });
+    });
+
+    function retry() {
+        $.ajax({
+            url: "/emailResent",
+            data: {
+                'token': '{{token}}'
+            },
+            type: "post",
+            success: function (result) {
+                if (result['result'] == "success") {
+                    swal({
+                        title: "发送成功",
+                        text: "已重新发送邮件，请在邮件中点击地址以进行验证。（邮件可能会被判定为垃圾邮件）",
+                        icon: "success",
+                        button: false,
+                        closeOnClickOutside: false,
+                    });
+                } else {
+                    swal({
+                        title: "发送失败",
+                        text: "邮件发送失败，请稍后重试。（错误码：" + result['code'] + "）",
+                        icon: "error",
+                        buttons: {resent: "重试"},
+                        closeOnClickOutside: false,
+                    }).then((result) => {
+                        if (result == "resent") {
+                            retry();
+                        }
+                    });
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
