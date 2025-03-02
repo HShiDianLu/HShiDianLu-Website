@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>作业侠 | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+</head>
+<body>
+<nav id="navbar">
+    <ul>
+        <li class="nav-title"><a href="javascript:hrefTo('/homework');">作业侠 | HShiDianLu's Website</a></li>
+        {% include 'loginStateSetter.html' %}
+        <li class="right breadcrumb-nav">
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="javascript:hrefTo('/');">主页</a></li>
+                    <li><a href="javascript:hrefTo('/homework');">作业侠</a></li>
+                    <li><span>{{title}}</span></li>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+</nav>
+<script>
+    let hitokoto = {{text | safe}};
+    let hwLen = {{allLen}};
+    let hws = {};
+    let caLen = {{hwLen | safe}};
+    let finishes = {};
+</script>
+<div id="hw-top-box">
+    <div id="hw-title-box">
+        <h1>{{title}}</h1>
+        <p id="hw-title-small">作业侠 · Homework Man</p>
+        <div id="hw-split"></div>
+        <p id="hw-title-info" class="small">发布于 <span class="convert-date" id="changeTime">{{changeTime}}</span> · 于 <span class="convert-date" id="eta">{{eta}}</span> 截止</p>
+    </div>
+    <br/>
+    <span id="hw-yy-inner" onclick="hrefTo('/hitokoto?uuid='+hitokoto['uuid']);">
+        <span id="hw-yy"></span>
+        <br/>
+        <span id="hw-yy-src"></span>
+    </span>
+</div>
+<div id="index-contents" class="hw-content">
+    <div class="progress">
+        {% for i in range(9) %}
+        <span class="progress-inner" id="progress-{{i}}" style="width: 0%;background: {{hwMap[i][2]}};">0%</span>
+        {% endfor %}
+    </div>
+    {% for i in range(9) %}
+    {% if hwList[i] %}
+    <div class="acc block" id="ca-{{i}}">
+        <h2 class="acc-title" onclick="toggleAcc(this);">
+            <span class="aac-color-block" style="background: {{hwMap[i][2]}};"></span>
+            <span>{{hwMap[i][0]}} <small>{{hwMap[i][1]}}</small> <span class="hw-complete" id="complete-{{i}}">未完成 0/{{hwLen[i]}}</span></span>
+            <div class="acc-icon-group">
+                <span class="acc-icon-plus">+</span>
+                <span class="acc-icon-minus">−</span>
+            </div>
+        </h2>
+        <div class="acc-content">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col" class="short-col">#</th>
+                    <th scope="col">内容</th>
+                    <th scope="col" class="short-col">完成</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for j in hwList[i] %}
+                <script>
+                    hws[{{j[1]}}] = [{{i}}, {{j[3]}}];
+                    finishes[{{j[1]}}] = false;
+                </script>
+                <tr>
+                    <td class="table-center" class="hw-row-id" id="row-id-{{j[1]}}"><span class="delete-line" id="delete-line-{{j[1]}}"></span>{{j[0]+1}}</td>
+                    <td><span class="hw-detail" id="detail-{{j[1]}}">{{j[2]}}</span></td>
+                    <td class="table-center">
+                        <label class="switch">
+                            <input class="checkbox-input" id="checkbox-{{j[1]}}" type="checkbox" onclick="finishHw({{j[1]}});">
+                            <label class="checkbox" for="checkbox-{{j[1]}}"></label>
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <br/>
+    <br/>
+    <br/>
+</div>
+{% include 'footer.html' %}
+<script src="{{ url_for('static', filename='js/confetti.browser.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/homework.js') }}"></script>
+</body>
+</html>

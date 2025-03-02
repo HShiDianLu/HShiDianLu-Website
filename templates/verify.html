@@ -19,35 +19,38 @@
     });
 
     function retry() {
-        $.ajax({
-            url: "/emailResent",
-            data: {
-                'token': '{{token}}'
-            },
-            type: "post",
-            success: function (result) {
-                if (result['result'] == "success") {
-                    swal({
-                        title: "发送成功",
-                        text: "已重新发送邮件，请在邮件中点击地址以进行验证。（邮件可能会被判定为垃圾邮件）",
-                        icon: "success",
-                        button: false,
-                        closeOnClickOutside: false,
-                    });
-                } else {
-                    swal({
-                        title: "发送失败",
-                        text: "邮件发送失败，请稍后重试。（错误码：" + result['code'] + "）",
-                        icon: "error",
-                        buttons: {resent: "重试"},
-                        closeOnClickOutside: false,
-                    }).then((result) => {
-                        if (result == "resent") {
-                            retry();
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LfgeG8pAAAAALgQp-eRF91eLXmmYuVUcExV_nl2', {action: 'emailResent'}).then(function (token) {
+                $.ajax({
+                    url: "/emailResent",
+                    data: {
+                        'token': '{{token}}',
+                        'recaptchaToken': token
+                    },
+                    type: "post",
+                    success: function (result) {
+                        if (result['result'] === "success") {
+                            swal({
+                                title: "发送成功",
+                                text: "已重新发送邮件，请在邮件中点击地址以进行验证。（邮件可能会被判定为垃圾邮件）",
+                                icon: "success",
+                                button: false,
+                                closeOnClickOutside: false,
+                            });
+                        } else {
+                            swal({
+                                title: "发送失败",
+                                text: "邮件发送失败，请稍后重试。（错误码：" + result['code'] + "）",
+                                icon: "error",
+                                buttons: {resent: "重试"},
+                                closeOnClickOutside: false,
+                            }).then((result) => {
+                                retry();
+                            });
                         }
-                    });
-                }
-            }
+                    }
+                });
+            });
         });
     }
 </script>

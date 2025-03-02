@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'beforeHead.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>OAuth 登录 | HShiDianLu's Website</title>
+    {% include 'topper.html' %}
+</head>
+<body>
+<div id="oauth-text">请稍等，正在进行登录。</div>
+{% include 'scripts.html' %}
+<script>
+    let code = "{{code}}";
+    let to = "{{to}}";
+</script>
+<script src="{{ url_for('static', filename='js/oauth.js') }}"></script>
+</body>
+</html>

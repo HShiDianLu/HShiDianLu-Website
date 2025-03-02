@@ -14,8 +14,10 @@
             title: "{{alertTitle|safe}}",
             text: "{{alertText|safe}}",
             icon: "{{alertIcon}}",
-            button: false,
+            buttons: {% if not noButton %}{btn: "{% if reload %}刷新{% elif not buttonText %}返回{% endif %}"}{% else %}false{% endif %},
             closeOnClickOutside: false,
+        }).then((result) => {
+            {% if href %}window.location.href = "{{href}}"{% elif reload %}location.reload(true){% else %}window.history.go(-1){% endif %};
         });
     });
 </script>

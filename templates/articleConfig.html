@@ -43,8 +43,17 @@
                 <label id="input-desc-label">简介</label>
             </div>
         </div>
-        <p class="error" id="input-desc-err">简介不能为空</p>
-        <p class="edit-tip right" id="edit-box-info">文章ID · {{id}} | 创建日期 · {{date}}</p>
+        <p class="error" id="input-banner-err">简介不能为空</p>
+        <div class="input-outer">
+            <div class="input-data common">
+                <input type="text" id="input-banner" value="{{banner}}" required>
+                <div class="input-underline"></div>
+                <label id="input-banner-label">背景 URL</label>
+            </div>
+        </div>
+<!--        <p class="error" id="input-desc-err">背景 URL 不能为空</p>-->
+        <p class="edit-tip right" id="edit-box-info">文章 ID · {{id}} | 创建日期 · {{date}}</p>
+        <p class="edit-tip" id="edit-box-info-mobile">文章 ID · {{id}}<br/>创建日期 · {{date}}</p>
     </div>
     <br/>
     <br/>
@@ -59,11 +68,11 @@
 <br/>
 {% include 'footer.html' %}
 <script>
-    var stringArray = {{content | tojson}};
-    var articleID = {{id}};
-    var type = "{{type}}";
-    var success = "{{success}}";
-    var successText = "{{successText}}";
+    let stringArray = {{content | tojson}};
+    let articleID = {{id}};
+    let type = "{{type}}";
+    let success = "{{success}}";
+    let successText = "{{successText}}";
 </script>
 <script src="{{ url_for('static', filename='js/vditor.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/article-config.js') }}"></script>

@@ -25,8 +25,8 @@
 </nav>
 
 <script>
-    var articleID = "{{article[1]}}";
-    var likeState = {% if like %}true{% else %}false{% endif %};
+    let articleID = "{{article[1]}}";
+    let likeState = {% if like %}true{% else %}false{% endif %};
 </script>
 
 <div id="contents">
@@ -156,7 +156,7 @@
             {% endfor %}
         </div>
         <br/>
-        <script>var haveComment = true;</script>
+        <script>let haveComment = true;</script>
         {% if (not comment) or (not moreContent) %}
         <script>haveComment = false;</script>
         {% endif %}
@@ -179,7 +179,7 @@
         tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
     };
 </script>
-<script src="{{ url_for('static', filename='js/mathjax.js') }}"></script>
+<script src="{{ url_for('static', filename='mathjax/tex-mml-chtml.js') }}"></script>
 <script src="{{ url_for('static', filename='js/mermaid.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/article.js') }}"></script>
 </body>

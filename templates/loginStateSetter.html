@@ -3,8 +3,8 @@
     <button class="reverse disabled-reverse" id="nav-login">登录 / 注册</button>
 </li>
 <script>
-    var loginState = false;
-    var username;
+    let loginState = false;
+    let username;
 </script>
 {% else %}
 <li class="dropdown right">
@@ -15,7 +15,7 @@
         </svg>
     </a>
     <div class="dropdown-content">
-        <a id="logout" href="#">退出登录
+        <a id="logout" href="javascript:hrefTo('/logout?to=' + window.location.pathname);">退出登录
             <svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor"
                  class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -23,9 +23,7 @@
             </svg>
         </a>
         <script>
-            var a = document.getElementById("logout")
-            a.href = 'javascript:hrefTo("/logout?to=' + window.location.pathname + '");';
-            var loginState = true;
+            let loginState = true;
             username = "{{user}}";
         </script>
     </div>

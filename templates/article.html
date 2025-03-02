@@ -32,7 +32,7 @@
         <!--        <br/>-->
         <br/>
         {% for i in range(articlesLen) %}
-        <div class="article-box block">
+        <div class="article-box block{% if not articles[i][9] %} article-box-noimg{% endif %}">
             <div class="article-img-blur" style="background-image: url('{{articles[i][9]}}');"></div>
             <div class="article-img" style="background-image: url('{{articles[i][9]}}');"></div>
             <h2 class="article-h2">{{articles[i][0]}} <br class="article-box-break break"/><small

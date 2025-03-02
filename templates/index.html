@@ -14,13 +14,13 @@
         <div class="right nav-links">
             <li><a href="javascript:scroll('#about');">关于</a></li>
             <li><a href="javascript:scroll('#links');">链接</a></li>
-            <li><a href="javascript:scroll('#article');">文章</a></li>
+            <li><a href="javascript:hrefTo('/article');">文章</a></li>
             <li><a href="javascript:scroll('#repo');">仓库</a></li>
         </div>
     </ul>
 </nav>
 <script>
-    var hitokoto = {{text | safe}};
+    let hitokoto = {{text | safe}};
 </script>
 <div id="title-box" onclick="hrefTo('/hitokoto?uuid='+hitokoto['uuid']);">
     <h1>HShiDianLu's <br id="title-break" class="break"/>Website</h1>
@@ -40,20 +40,22 @@
     <div id="links" class="block">
         <h2 class="big-h2">链接 <small>Links</small></h2>
         <div id="link-list">
-            <button class="link-style" style="width: 58px;" onclick="link('Bilibili')">BiliBili<span class="btn-span"> | HShiDianLu_</span>
+            <button class="link-style" style="width: 58px;" onclick="link('Bilibili');">BiliBili<span class="btn-span"> | HShiDianLu_</span>
             </button>
-            <button class="link-style" style="width: 64px;" onclick="link('Github')">Github<span class="btn-span"> | HShiDianLu.</span>
+            <button class="link-style" style="width: 64px;" onclick="link('Github');">Github<span class="btn-span"> | HShiDianLu</span>
             </button>
             <br class="btn-break break"/>
             <br class="btn-break break"/>
-            <button class="link-style" style="width: 85px;" onclick="copyMinecraft();">Minecraft<span class="btn-span"> | HSh1DianLu</span>
+            <button class="link-style" style="width: 75px;" onclick="link('Crowdin');">Crowdin<span class="btn-span"> | HSh1DianLu</span>
             </button>
-            <button class="link-style" style="width: 55px;" onclick="link('Drive')">Drive<span class="btn-span"> | HShiDianLu's Drive</span>
+            <button class="link-style" style="width: 55px;" onclick="link('Drive');">Drive<span class="btn-span"> | HShiDianLu's Drive</span>
             </button>
         </div>
         <a class="disappear" href="https://space.bilibili.com/1656328560" target="_blank"><span
                 id="Bilibili">Bilibili</span></a>
         <a class="disappear" href="https://github.com/HShiDianLu" target="_blank"><span id="Github">Github</span></a>
+        <a class="disappear" href="https://crowdin.com/profile/HSh1DianLu" target="_blank"><span
+                id="Crowdin">Crowdin</span></a>
         <a class="disappear" href="https://drive.hshidianlu.site" target="_blank"><span
                 id="Drive">Drive</span></a>
     </div>
@@ -65,7 +67,7 @@
         </h2>
         <br/>
         {% for i in range(articlesLen) %}
-        <div class="article-box block">
+        <div class="article-box block{% if not articles[i][9] %} article-box-noimg{% endif %}">
             <div class="article-img-blur" style="background-image: url('{{articles[i][9]}}');"></div>
             <div class="article-img" style="background-image: url('{{articles[i][9]}}');"></div>
             <h2 class="article-h2">{{articles[i][0]}} <br class="article-box-break break"/><small
@@ -152,7 +154,6 @@
 <br/>
 <br/>
 <br/>
-</div>
 {% include 'footer.html' %}
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
