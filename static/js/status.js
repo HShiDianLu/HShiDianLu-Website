@@ -1,8 +1,8 @@
 // status.js By HShiDianLu.
-// Copyright © 2024 HShiDianLu. All Rights Reserved.
+// Copyright © 2024-2025 HShiDianLu. All Rights Reserved.
 
 $(window).on('load', function () {
-    $("#sleep-box").css("height", "295px");
+    $("#sleep-box").css("height", parseFloat($("#sleep-inner").css("height")) + 51.56);
     setTimeout(function () {
         $("#sleep-inner").css("opacity", "1");
         setTimeout(function () {
@@ -29,6 +29,7 @@ setInterval(function () {
             $("#sleep-box h2").text(result['data']['status'])
             dateTippy.setContent(result['data']['time']);
             $("#sleep-date").text(moment(result['data']['time']).fromNow());
+            $("#sleep-box").css("height", parseFloat($("#sleep-inner").css("height")) + 51.56);
         }
     })
 }, 30000)

@@ -1,5 +1,5 @@
 // hitokoto.js By HShiDianLu.
-// Copyright © 2024 HShiDianLu. All Rights Reserved.
+// Copyright © 2024-2025 HShiDianLu. All Rights Reserved.
 // Powered By Hitokoto.
 
 // 动画
@@ -30,31 +30,34 @@ $(window).on('load', function () {
 tippy("#string-change", {
     content: "换一换",
     placement: "bottom",
-    animation: 'shift-away'
+    animation: 'shift-away',
+    hideOnClick: true
 });
 
 tippy("#string-copy", {
     content: "复制一言",
     placement: "bottom",
-    animation: 'shift-away'
+    animation: 'shift-away',
+    hideOnClick: true
 });
 
 tippy("#string-disabled", {
     content: "隐藏 UI",
     placement: "bottom",
-    animation: 'shift-away'
+    animation: 'shift-away',
+    hideOnClick: true
 });
 
 // 换一换
 
-var btnRotate = 0;
+let btnRotate = 0;
 
 function stringChange() {
     $(".word").css("opacity", "0");
     $(".author").css("opacity", "0");
     btnRotate += 360;
     $("#string-change svg").css("transform", "rotate(" + (btnRotate) + "deg)");
-    var loadingInterval = setInterval(function () {
+    let loadingInterval = setInterval(function () {
         btnRotate += 360;
         $("#string-change svg").css("transform", "rotate(" + (btnRotate) + "deg)");
     }, 1000)
@@ -62,7 +65,7 @@ function stringChange() {
         url: "/getHitokoto",
         type: "POST",
         success: function (result) {
-            if (result['result'] == "success") {
+            if (result['result'] === "success") {
                 text = result['data']['content'];
                 who = result['data']['from'];
                 setTimeout(function () {
@@ -74,17 +77,6 @@ function stringChange() {
                         $(".author").css("opacity", "1");
                     }, 100)
                 }, 300)
-            } else if (result['code'] == 1429) {
-                clearInterval(loadingInterval);
-                Swal.fire({
-                    toast: true,
-                    showConfirmButton: false,
-                    icon: 'error',
-                    timer: 2000,
-                    title: '错误',
-                    text: "操作过于频繁，请稍后再试。",
-                    position: 'bottom-start'
-                })
             } else {
                 clearInterval(loadingInterval);
                 Swal.fire({
@@ -92,8 +84,8 @@ function stringChange() {
                     showConfirmButton: false,
                     icon: 'error',
                     timer: 2000,
-                    title: '错误',
-                    text: "更换失败。错误码：" + result['code'],
+                    title: '获取失败',
+                    text: errorCodeMapping(result['code']),
                     position: 'bottom-start'
                 })
             }
@@ -117,7 +109,7 @@ function stringCopy() {
 
 // 隐藏UI
 
-var UIState = true;
+let UIState = true;
 
 function stringDisabled() {
     if (!UIState) {

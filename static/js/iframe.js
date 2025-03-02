@@ -1,8 +1,8 @@
 // iframe.js By HShiDianLu.
-// Copyright © 2024 HShiDianLu. All Rights Reserved.
+// Copyright © 2024-2025 HShiDianLu. All Rights Reserved.
 
 function changeFrameHeight() {
-    var iframe = document.getElementById("iframe");
+    let iframe = document.getElementById("iframe");
     iframe.height = document.documentElement.clientHeight - 60;
 }
 

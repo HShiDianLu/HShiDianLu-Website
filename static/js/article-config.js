@@ -1,49 +1,56 @@
 // article-config.js By HShiDianLu.
-// Copyright © 2024 HShiDianLu. All Rights Reserved.
+// Copyright © 2024-2025 HShiDianLu. All Rights Reserved.
 // Powered By Vditor.
 
 // 初始化
 
-var string = "";
-for (var i = 0; i < stringArray.length; i++) {
+let string = "";
+for (let i = 0; i < stringArray.length; i++) {
     string += stringArray[i] + "\n";
 }
 
-var textEditor = new Vditor('editor', {
-    "height": 500,
+let textEditor = new Vditor('editor', {
+    "height": 600,
     "cache": {
         "enable": false
     },
-    "mode": "sv",
+    "mode": "ir",
     "preview": {
-        "mode": "editor"
+        // "mode": "editor",
+        "math": {
+            "engine": "MathJax"
+        }
     },
     "value": string,
-    "cdn": "/static/js/vditor",
+    "cdn": "/static/vditor",
     "toolbar": ["headings", "bold", "italic", "strike", "|", "line", "quote", "link", "|", "list", "ordered-list", "table", "|", "code", "inline-code", "|", "undo", "redo"],
 })
 
 // 发送
 
-var sendRespond = false;
+let sendRespond = false;
 
 function send() {
     if (sendRespond) {
         return;
     }
-    var err = false;
+    let err = false;
     $("#input-title-err").css("opacity", "0");
     $("#input-desc-err").css("opacity", "0");
     $("#editor-err").css("opacity", "0");
-    if ($("#input-title").val() == "") {
+    if (!$("#input-title").val()) {
         err = true;
         $("#input-title-err").css("opacity", "1");
     }
-    if ($("#input-desc").val() == "") {
+    if (!$("#input-desc").val()) {
         err = true;
         $("#input-desc-err").css("opacity", "1");
     }
-    if (textEditor.getValue() == "\n") {
+    // if ($("#input-banner").val() == "") {
+    //     err = true;
+    //     $("#input-banner-err").css("opacity", "1");
+    // }
+    if (textEditor.getValue() === "\n") {
         err = true;
         $("#editor-err").text("正文不能为空")
         $("#editor-err").css("opacity", "1");
@@ -60,12 +67,13 @@ function send() {
             'type': type,
             'title': $("#input-title").val(),
             'desc': $("#input-desc").val(),
+            'banner': $("#input-banner").val(),
             'content': textEditor.getValue()
         },
         type: "POST",
         success: function (result) {
-            if (result['result'] == "success") {
-                if (type == "edit") {
+            if (result['result'] === "success") {
+                if (type === "edit") {
                     $("#editor-btn").removeClass("disabled-reverse");
                     sendRespond = false;
                 } else {
@@ -85,7 +93,7 @@ function send() {
             } else {
                 $("#editor-btn").removeClass("disabled-reverse");
                 sendRespond = false;
-                $("#editor-error").text(success + "失败。错误码：" + result['code'])
+                $("#editor-error").text(errorCodeMapping(result['code']))
                 $("#editor-error").css("opacity", "1");
             }
         }

@@ -1,5 +1,28 @@
 // main.js By HShiDianLu.
-// Copyright © 2024 HShiDianLu. All Rights Reserved.
+// Copyright © 2024-2025 HShiDianLu. All Rights Reserved.
+
+// Cookies
+let Cookie = {
+    set: function (key, value, exp) {
+        window.document.cookie = key + '=' + value + ';path=/;expires=' + new Date(exp).toGMTString()
+    },
+
+    get: function (key) {
+        if (document.cookie.length > 0) {
+            let arr = document.cookie.split('; ');
+            for (let i = 0; i < arr.length; i++) {
+                let arr2 = arr[i].split('=')
+                if (arr2[0] === key) {
+                    return arr2[1]
+                }
+            }
+        }
+    },
+
+    remove: function (key) {
+        Cookie.set(key, '', -1);
+    }
+};
 
 // 链接转跳
 function link(id) {
@@ -8,7 +31,7 @@ function link(id) {
 
 // 返回顶部
 
-var topState = true;
+let topState = true;
 
 function back() {
     if (topState) {
@@ -56,23 +79,23 @@ function scroll(element) {
 // 平滑加载
 
 function appear(i) {
-    var blocks = document.getElementsByClassName("block");
+    let blocks = document.getElementsByClassName("block");
     blocks[i].style.opacity = "1";
     blocks[i].style.top = "0";
 }
 
 function contentOut() {
-    var basic = 100;
-    var blocks = document.getElementsByClassName("block");
-    for (var i = 0; i < blocks.length; i++) {
+    let basic = 100;
+    let blocks = document.getElementsByClassName("block");
+    for (let i = 0; i < blocks.length; i++) {
         setTimeout("appear(" + i + ")", basic * i);
     }
 }
 
 // 登录 & 注册
 
-var closeTimeout;
-var windowOpen = false;
+let closeTimeout;
+let windowOpen = false;
 
 function close() {
     windowOpen = false;
@@ -99,7 +122,7 @@ $.ajax({
     url: "/getImg",
     type: "POST",
     success: function (result) {
-        var img = document.getElementById("login-img");
+        let img = document.getElementById("login-img");
         try {
             img.src = result['url'];
             img.title = result['copyright'];
@@ -126,16 +149,16 @@ function openLogin() {
             $("#recaptcha-text").css("color", "darkgray");
             $(".recaptcha-link").css("opacity", "1");
         }, 100)
-    }, 1)
+    }, 20)
 }
 
-var windowState = false;
+let windowState = false;
 
 function switchWindow() {
     if (ajaxRespond) {
         return;
     }
-    var input2 = document.getElementById("input2");
+    let input2 = document.getElementById("input2");
     $("#reg-btn").css("color", "white");
     $("#login-btn").css("color", "rgb(62, 105, 232)");
     $("#input1-label").css("opacity", "0");
@@ -150,13 +173,19 @@ function switchWindow() {
         $("#login-window").css("height", "650px");
         $("#login-btngroup").css("top", "0");
         $("#login-box").css("padding-top", "35px");
+        $("#github-btn").css("width", "0");
+        $("#github-btn").css("padding-left", "0");
+        $("#github-btn").css("padding-right", "0");
+        $("#github-btn").css("border", "0 solid transparent");
+        $("#github-btn").css("margin-left", "5px");
+        $("#github-btn").css("margin-right", "5px");
         setTimeout(function () {
             $(".reg input").css("cursor", "text");
             $(".reg").css("opacity", "1");
         }, 200)
         setTimeout(function () {
             $("#login-box h3").html("注册 <small>Register</small>");
-            $("#reg-btn").text("登录");
+            $("#reg-btn").text("登录...");
             $("#login-btn").text("注册");
             $("#input1-label").text("邮箱");
             $("#input2-label").text("用户名");
@@ -172,6 +201,12 @@ function switchWindow() {
             $("#login-window").css("height", "550px");
             $("#login-box").css("padding-top", "70px");
             $("#login-btngroup").css("top", "-180px");
+            $("#github-btn").css("width", "40px");
+            $("#github-btn").css("padding-left", "9px");
+            $("#github-btn").css("padding-right", "9px");
+            $("#github-btn").css("border", "1px solid black");
+            $("#github-btn").css("margin-left", "10px");
+            $("#github-btn").css("margin-right", "10px");
         }, 200)
         setTimeout(function () {
             $(".reg input").css("cursor", "default");
@@ -179,7 +214,7 @@ function switchWindow() {
         }, 300)
         setTimeout(function () {
             $("#login-box h3").html("登录 <small>Login</small>");
-            $("#reg-btn").text("注册");
+            $("#reg-btn").text("注册...");
             $("#login-btn").text("登录");
             $("#input1-label").text("用户名 / 邮箱");
             $("#input2-label").text("密码");
@@ -196,9 +231,9 @@ function switchWindow() {
 }
 
 function errorDetect(num) {
-    var err = false;
-    for (var i = 1; i <= num; i++) {
-        if ($("#input" + i).val() == "") {
+    let err = false;
+    for (let i = 1; i <= num; i++) {
+        if (!$("#input" + i).val()) {
             $("#input" + i + "-err").text($("#input" + i + "-label").text() + "不能为空");
             $("#input" + i + "-err").css("opacity", "1");
             err = true;
@@ -216,7 +251,7 @@ function validUsername(username) {
     if (username.length > 16) {
         return 2;
     }
-    var reg = /^[a-zA-Z0-9_]+$/;
+    let reg = /^[a-zA-Z0-9_]+$/;
     if (!reg.test(username)) {
         return 3;
     }
@@ -230,7 +265,7 @@ function validPassword(password) {
     if (password.length < 8) {
         return 1;
     }
-    var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+    let reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
     if (reg.test(password)) {
         return 0;
     } else {
@@ -239,15 +274,15 @@ function validPassword(password) {
 }
 
 function validEmail(str) {
-    var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
     return reg.test(str);
 }
 
-var ajaxRespond = false;
+let ajaxRespond = false;
 
 grecaptcha.ready(function () {
     if (!loginState) {
-        var loginBtn = document.getElementById("nav-login");
+        let loginBtn = document.getElementById("nav-login");
         loginBtn.onclick = openLogin;
         $("#nav-login").removeClass("disabled-reverse");
     }
@@ -276,21 +311,15 @@ function login() {
                     },
                     type: "POST",
                     success: function (result) {
-                        if (result['result'] == "success") {
+                        if (result['result'] === "success") {
                             location.reload(true);
                             $("#loader-background").css("display", "block");
                             setTimeout(function () {
                                 // $(".loader").css("opacity", "1");
                                 $("#loader-background").css("opacity", "1");
-                            }, 1)
-                        } else if (result['code'] == 1002) {
-                            $("#input2-err").text("用户名或密码错误");
-                            $("#input2-err").css("opacity", "1");
-                        } else if (result['code'] == 1009) {
-                            $("#input2-err").html("您尚未通过邮箱验证。请验证邮箱后重试。");
-                            $("#input2-err").css("opacity", "1");
+                            }, 20)
                         } else {
-                            $("#input2-err").text("登录失败。错误码：" + result['code']);
+                            $("#input2-err").text(errorCodeMapping(result['code']));
                             $("#input2-err").css("opacity", "1");
                         }
                         ajaxRespond = false;
@@ -302,17 +331,17 @@ function login() {
             });
         });
     } else { // reg
-        var valid = true;
+        let valid = true;
         if (errorDetect(4)) {
             return;
         }
-        if ($("#input3").val() != $("#input4").val()) {
+        if ($("#input3").val() !== $("#input4").val()) {
             $("#input4-err").text("密码与确认密码不一致");
             $("#input4-err").css("opacity", "1");
             valid = false;
         }
-        var validU = validUsername($("#input2").val());
-        if (validU != 0) {
+        let validU = validUsername($("#input2").val());
+        if (validU !== 0) {
             switch (validU) {
                 case 1:
                     $("#input2-err").text("用户名长度至少为4位");
@@ -335,8 +364,8 @@ function login() {
             $("#input1-err").css("opacity", "1");
             valid = false;
         }
-        var validP = validPassword($("#input3").val());
-        if (validP != 0) {
+        let validP = validPassword($("#input3").val());
+        if (validP !== 0) {
             switch (validP) {
                 case 1:
                     $("#input3-err").text("密码长度至少为8位");
@@ -367,33 +396,18 @@ function login() {
                         'token': token
                     },
                     success: function (result) {
-                        if (result['result'] == "success") {
+                        if (result['result'] === "success") {
                             close();
                             setTimeout(function () {
                                 swal({
                                     title: "请验证邮箱",
                                     text: "我们已向您的邮箱发送了一封邮件，请在邮件中点击地址以进行验证。（邮件可能会被判定为垃圾邮件）",
                                     icon: "info",
-                                    button: "确定",
+                                    button: "确定"
                                 });
                             }, 600)
-                        } else if (result['code'] == 1003) {
-                            $("#input2-err").text("用户名包含敏感词");
-                            $("#input2-err").css("opacity", "1");
-                        } else if (result['code'] == 1004) {
-                            $("#input1-err").text("邮箱信息错误");
-                            $("#input1-err").css("opacity", "1");
-                        } else if (result['code'] == 1006) {
-                            $("#input2-err").text("用户名已被使用");
-                            $("#input2-err").css("opacity", "1");
-                        } else if (result['code'] == 1007) {
-                            $("#input1-err").text("邮箱已被注册");
-                            $("#input1-err").css("opacity", "1");
-                        } else if (result['code'] == 1008) {
-                            $("#input4-err").text("邮件发送失败。请稍后重试。");
-                            $("#input4-err").css("opacity", "1");
                         } else {
-                            $("#input4-err").text("注册失败。错误码：" + result['code']);
+                            $("#input4-err").text(errorCodeMapping(result['code']));
                             $("#input4-err").css("opacity", "1");
                         }
                         ajaxRespond = false;
@@ -409,14 +423,14 @@ function login() {
 
 // (用户) Dropdown
 
-var drop;
+let drop;
 
 $(".dropdown").hover(function () {
     clearTimeout(drop);
     $(".dropdown-content").css("display", "block");
     setTimeout(function () {
         $(".dropdown-content").css("opacity", "1");
-    }, 1)
+    }, 20)
     $(".dropdown-svg").css("transform", "rotate(0deg)");
 }, function () {
     $(".dropdown-content").css("opacity", "0");
@@ -428,7 +442,7 @@ $(".dropdown").hover(function () {
 
 // 旧版 Dropdown Event
 
-// var dropdownState = false;
+// let dropdownState = false;
 
 // function dropdown() {
 //     if (!dropdownState) {
@@ -473,19 +487,16 @@ function randomNum(minNum, maxNum) {
     switch (arguments.length) {
         case 1:
             return parseInt(Math.random() * minNum + 1, 10);
-            break;
         case 2:
             return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-            break;
         default:
             return 0;
-            break;
     }
 }
 
 // 复制
 function copy(text) {
-    var input = $('<input value="' + text + '"/>');
+    let input = $('<input value="' + text + '"/>');
     $("body").prepend(input);
     $("body").find("input").eq(0).select();
     document.execCommand("copy");
@@ -499,7 +510,7 @@ function copy(text) {
 $(".loader").css("opacity", "1");
 $("#navbar").css("opacity", "1");
 
-var autoContentOut = true;
+let autoContentOut = true;
 
 function websiteIn() {
     $(".loader").css("opacity", "0");
@@ -519,7 +530,7 @@ $(window).on('load', function () {
 });
 
 // ForceIn
-var loadTimeout = setTimeout(function () {
+let loadTimeout = setTimeout(function () {
     websiteIn();
     Swal.fire({
         toast: true,
@@ -527,7 +538,7 @@ var loadTimeout = setTimeout(function () {
         icon: 'warning',
         timer: 4000,
         title: '加载超时',
-        text: "加载时间过长，已为您强制显示网页。部分功能将在完全加载后可用。",
+        text: "部分功能将在完全加载后可用。",
         position: 'bottom-start'
     })
 }, 4000)
@@ -539,13 +550,13 @@ function hrefTo(url) {
     setTimeout(function () {
         // $(".loader").css("opacity", "1");
         $("#loader-background").css("opacity", "1");
-    }, 1)
+    }, 20)
 }
 
 // 日期转化
 
-var dates = document.getElementsByClassName("convert-date");
-for (var i = 0; i < dates.length; i++) {
+let dates = document.getElementsByClassName("convert-date");
+for (let i = 0; i < dates.length; i++) {
     tippy("#" + dates[i].id, {
         content: $(dates[i]).text(),
         placement: "bottom",
@@ -554,14 +565,14 @@ for (var i = 0; i < dates.length; i++) {
     $(dates[i]).text(moment($(dates[i]).text()).fromNow());
 }
 
-var datesKeep = document.getElementsByClassName("convert-date-keep");
-for (var i = 0; i < datesKeep.length; i++) {
+let datesKeep = document.getElementsByClassName("convert-date-keep");
+for (let i = 0; i < datesKeep.length; i++) {
     $(datesKeep[i]).prepend(moment($(datesKeep[i]).text()).fromNow() + " · ");
 }
 
 // Login Box Tippy
 
-var passwordTippy = tippy("#input3", {
+let passwordTippy = tippy("#input3", {
     content: "至少8位，须同时包含字母与数字",
     placement: "left",
     animation: 'shift-away',
@@ -569,7 +580,7 @@ var passwordTippy = tippy("#input3", {
     hideOnClick: false
 })[0];
 
-var usernameTippy = tippy("#input2", {
+let usernameTippy = tippy("#input2", {
     content: "4~16位，仅能由字母、数字、下划线组成",
     placement: "left",
     animation: 'shift-away',
@@ -578,9 +589,55 @@ var usernameTippy = tippy("#input2", {
     theme: ""
 })[0];
 
+tippy("#github-btn", {
+    content: "通过 Github 登录",
+    placement: "bottom",
+    animation: 'shift-away',
+    hideOnClick: true
+})
+
 try {
     usernameTippy.disable();
     passwordTippy.disable();
 } catch (error) {
     console.warn(error);
+}
+
+// Fallback Text
+
+const ERRORCODE = {
+    1001: "reCAPTCHA 接口连接失败。请稍后再试。",
+    1002: "用户名或密码错误",
+    1003: "用户名包含敏感词",
+    1004: "邮箱接口连接失败。请稍后再试。",
+    1005: "数据校验异常",
+    1006: "用户名已被使用",
+    1007: "邮箱已被注册",
+    1008: "邮件接口异常",
+    1009: "您尚未通过邮箱验证。请验证邮箱后重试。",
+    1010: "缺少参数：Token",
+    1011: "Token 无效或已失效",
+    1012: "您已通过验证，无需重复验证。",
+    1013: "操作类型无效",
+    1014: "ID 无效",
+    1015: "OAuth相关错误",
+    1016: "评论内容包含敏感词",
+    1017: "【非错误信息】重复分享",
+    1018: "reCAPTCHA 验证失败。请再试一次。",
+    1019: "reCAPTCHA 操作类型校验异常",
+    1020: "抱歉，您的 Github 用户名与本站现有用户名重复，故无法登录。请尝试更换您的 Github 用户名或在本站进行注册。若同名账号与您的账号为同一人所属，请联系管理员合并。",
+    1021: "一言获取失败。请稍后再试。",
+
+    1403: "权限不足",
+    1404: "未找到页面",
+    1405: "请求方式错误",
+    1429: "操作过于频繁。请稍后再试。",
+    1500: "服务器发生内部错误。请将此问题上报网站管理员。"
+}
+
+function errorCodeMapping(code) {
+    if (!ERRORCODE.hasOwnProperty(code)) {
+        return "发生未知错误 [" + code + "]";
+    }
+    return ERRORCODE[code];
 }
